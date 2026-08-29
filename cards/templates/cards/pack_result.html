@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pack Result</title>
+
+    <link rel="stylesheet" href="{% static 'cards/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>You opened a pack! 🎁</h1>
+
+    <p>You opened: {{ pack.name }}!</p>
+
+    <div class="card {{ card.rarity }}">
+        <h2>{{ card.name }}</h2>
+
+        <p>Rarity: {{ card.get_rarity_display }}</p>
+        <p>Overall: {{ card.overall }}</p>
+
+        <p>Pace: {{ card.pace }}</p>
+        <p>Shooting: {{ card.shooting }}</p>
+        <p>Passing: {{ card.passing }}</p>
+        <p>Dribbling: {{ card.dribbling }}</p>
+        <p>Defending: {{ card.defending }}</p>
+        <p>Physical: {{ card.physical }}</p>
+
+        <p>Income: {{ card.income }} coins</p>
+    </div>
+
+    <a href="{% url 'card_shop' %}">
+        <button>Back to Shop</button>
+    </a>
+
+    <a href="{% url 'open_pack' pack.id %}"><button>Open Again 🎁</button></a>
+
+
+    <a href="{% url 'my_cards' %}">
+        <button>My Cards</button>
+    </a>
+</body>
+</html>

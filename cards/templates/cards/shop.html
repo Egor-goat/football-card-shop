@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="{% static 'cards/style.css' %}">
+
+    <title>Football Card Shop</title>
+</head>
+<body>
+    <a href="{% url 'my_cards' %}">
+        My team ⚽
+    </a>
+
+    <h2>Your coins: {{ profile.coins }}</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+
+
+<section class="pack-shop">
+    <h2>Football Packs 🎁</h2>
+
+    {% for pack in packs %}
+        <div class="pack">
+            <h3>{{ pack.name }}</h3>
+
+            <p>Price: {{ pack.price }} coins</p>
+            <p>Legendary chance: {{ pack.legendary_chance }}%</p>
+
+            {% if profile.coins >= pack.price %}
+                <a href="{% url 'open_pack' pack.id %}">
+                    <button>
+                        Open {{ pack.name }}
+                    </button>
+                </a>
+            {% else %}
+                <button disabled>
+                    Not enough coins
+                </button>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No packs are available.</p>
+    {% endfor %}
+</section>
+
+        <a href="{% url 'my_team' %}">
+        <button>
+            My Team 
+        </button>
+    </a>
+
+<a href="{% url 'my_cards' %}">My Cards</a>
+    <h1>Football Card Shop ⚽</h1>
+
+    {% for card in cards %}
+            <div
+            class="
+            {% if card.price >= 100 %}
+            expensive
+            {% endif %}
+            card
+            ">
+            <h2>{{ card.name }}</h2>
+            <p>
+                Owned:
+
+                {% for user_card in user_cards %}
+                    {% if user_card.card.id == card.id%}
+                        {{ user_card.quantity }}
+                    {% endif %}
+                {% empty %}
+                0
+                {% endfor %}
+            </p>
+            <p>Football Superstar</p>
+            {% if card.overall >= 90 %}
+            <p style="color: green;">
+                Overall: {{ card.overall }}
+            </p>
+            {% else %}
+            <p>
+                Overall: {{ card.overall  }}
+            </p>
+            {% endif %}
+            <p>Rarity: {{ card.rarity }}</p>
+            <p>Pace: {{ card.pace }}</p>
+            <p>Shooting: {{ card.shooting }}</p>
+            <p>Passing: {{ card.passing }}</p>
+            <p>Dribbling: {{ card.dribbling }}</p>
+            <p>Defending: {{ card.defending }}</p>
+            <p>Physical: {{ card.physical }}</p>
+            <p>Playstyles: {{ card.playstyle }}</p>
+            <p>Playstyles_Plus: {{ card.playstyle_plus }}</p>
+            <p>Price: {{ card.price }} coins</p>
+            <a href="{% url 'buy_card' card.id %}">
+                <button class="buy-button">Buy card</button>
+            </a>
+        </div>
+        <hr>
+    {% empty %}
+        <p>No cards yet.</p>
+    {% endfor %}
+
+    <div class="
+    card
+    
+    {% if card.overall >= 90 %}
+    legend
+    {% endif %}
+    ">
+
+    <h2 class="coins">
+        Your coins: {{ profile.coins }}
+    </h2>
+
+</body>
+</html>

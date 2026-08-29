@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="{% static 'cards/style.css' %}">
+
+    <title>My Cards</title>
+</head>
+<body>
+    <h1>My Cards ⚽🃏</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <h2>Your coins: {{ profile.coins }}</h2>
+    <h2>Total income: {{ total_income }} coins</h2>
+
+    <a href="{% url 'collect_income' %}">
+        <button>
+            Collect Income
+        </button>
+    </a>
+
+    <a href="{% url 'card_shop' %}">Back to shop</a>
+
+    {% for user_card in user_cards %}
+        <div>
+            <h2>{{ user_card.card.name }}</h2>
+
+            <a href="{% url 'add_to_team' user_card.card.id %}">
+                <button>
+                    Add To Team
+                </button>
+            </a>
+
+            <p>Quantity: {{ user_card.quantity }}</p>
+            <p>Overall: {{ user_card.card.overall }}</p>
+            <p>Price: {{ user_card.card.price }} coins</p>
+            <p>Income: {{ user_card.card.income }} coins</p>
+        </div>
+        <hr>
+    {% empty %}
+        <p>You do not have any cards yet.</p>
+    {% endfor %}
+</body>
+</html>

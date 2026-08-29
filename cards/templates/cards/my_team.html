@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>My Team</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'cards/style.css' %}"
+    >
+</head>
+
+<body>
+
+    <h1>My Football Team ⚽</h1>
+
+    <h2>
+        Team Rating: {{ team_rating }}
+    </h2>
+
+    <p>
+        Players:
+        {{ team_cards|length }}/11
+    </p>
+
+    <h2>
+        Team Income: {{ total_income }} coins
+    </h2>
+
+    <a href="{% url 'card_shop' %}">
+        <button>
+            Back to Shop
+        </button>
+    </a>
+    <hr>
+
+    {% for team_card in team_cards %}
+
+    <a href="{% url 'remove_from_team' team_card.id %}">
+        <button>
+            Remove from Team
+        </button>
+    </a>
+
+        <div class="card">
+
+            <h2>
+                {{ team_card.card.name }}
+            </h2>
+
+            <p>
+                Position: {{ team_card.card.get_position_display }}
+            </p>
+
+            <p>
+                Overall:
+                {{ team_card.card.overall }}
+            </p>
+
+            <p>
+                Rarity:
+                {{ team_card.card.get_rarity_display }}
+            </p>
+
+            <p>
+                Income:
+                {{ team_card.card.income }}
+                coins
+            </p>
+
+        </div>
+
+    {% empty %}
+
+        <h2>Your team is empty.</h2>
+
+        <p>
+            Go to My Cards and add some players!
+        </p>
+
+    {% endfor %}
+
+</body>
+</html>
