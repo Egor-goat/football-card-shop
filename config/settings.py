@@ -117,6 +117,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-LOGIN_URL = "/admin/login/"
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "/"
  
 STATIC_ROOT = BASE_DIR / "staticfiles"
