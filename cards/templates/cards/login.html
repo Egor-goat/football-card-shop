@@ -7,13 +7,17 @@
 </head>
 <body>
     <h1>Football Card Game</h1>
-    <h2>LOgin</h2>
+    <h2>Login</h2>
 
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
 
         <button type="submit">Login</button>
+
+        <p>Don't have an account?
+            <a href="{% url 'register' %}">Register</a>
+        </p>
     </form>
 </body>
 </html>

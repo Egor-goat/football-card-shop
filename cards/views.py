@@ -3,6 +3,32 @@ from django.contrib.auth.decorators import login_required
 from .models import PlayerCard, UserCard, UserProfile, TeamCard, Pack
 import random
 from django.contrib import messages
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+
+            UserProfile.objects.create(user=user)
+
+            login(request, user)
+
+            return redirect("card_shop")
+    else:
+        form = UserCreationForm()
+
+    return render(
+        request,
+        "cards/register.html",
+        {
+        "form": form,
+        }
+        )
 
 
 @login_required
